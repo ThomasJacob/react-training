@@ -1,5 +1,32 @@
 import React from 'react';
 import './Popular.css';
+import PropTypes from 'prop-types';
+
+//Stateless functional Component.
+function SelectLanguage(props){
+        var languages = ["All", "Javascript", "Ruby", "Java", "CSS", "Python"];
+        return (
+            <ul className="languages">
+                {
+                    languages.map(function (language) {
+                        var selectionStyle = props.selectedLanguage === language ? 'selected-item' : null;
+                        return (
+                            <li className={selectionStyle}
+                                onClick={props.onSelect.bind(null, language)}
+                                key={language}>
+                                {language}
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        )
+}
+
+SelectLanguage.propTypes = {
+    selectedLanguage: PropTypes.string.isRequired,
+    onSelect: PropTypes.func.isRequired
+}
 
 class Popular extends React.Component {
 
@@ -24,35 +51,13 @@ class Popular extends React.Component {
 
     render() {
 
-        var languages = ["All", "Javascript", "Ruby", "Java", "CSS", "Python"];
 
         return (
-            <ul className="languages">
-                {
-                    languages.map(function (language) {
-                        var selectionStyle = this.state.selectedLanguage === language ? 'selected-item' : null;
-                        return (
-                            <li className={selectionStyle}
-                                onClick={this.updateLanguage.bind(this, language)}
-                                key={language}>
-                                {language}
-                            </li>
-                        );
-                    }, this)
-
-                    /*
-                    //ES6
-                    languages.map((language) => {
-                        return (
-                            <li style={language === this.state.selectedLanguage ? { color: '#d0021b' } : null}
-                                onClick={this.updateLanguage.bind(this, language)}
-                                key={language}>
-                                {language}
-                            </li>
-                        );
-                    })*/
-                }
-            </ul>
+            <div>
+                <SelectLanguage
+                    selectedLanguage={this.state.selectedLanguage}
+                    onSelect={this.updateLanguage.bind(this)} />
+            </div>
         );
     }
 }
