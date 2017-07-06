@@ -1,0 +1,16 @@
+.languages{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.languages li{
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.selected-item{
+    color: #d0021b;
+}
